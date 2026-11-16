@@ -22,7 +22,7 @@ TARGET_OTA_ASSERT_DEVICE := klteactivexx,klteattactive,klte
 TARGET_KERNEL_CONFIG := lineage_klteactivexx_defconfig
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_klteactivexx
+$(call soong_config_set,libinit,vendor_init_lib,libinit_klteactivexx)
 
 # NFC
 include $(COMMON_PATH)/nfc/pn547/board.mk
