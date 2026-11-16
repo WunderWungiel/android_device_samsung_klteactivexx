@@ -16,9 +16,13 @@ function blob_fixup() {
     case "${1}" in
         vendor/lib/libsec-ril.*)
             "${PATCHELF}" --replace-needed libcutils.so libcutils-v29.so \
+                --replace-needed libril.so libril_samsung.so \
                 --replace-needed libprotobuf-cpp-full.so libprotobuf-cpp-full-v23.so \
                 --replace-needed libprotobuf-cpp-haxx.so libprotobuf-cpp-full-v23.so \
                 "${2}"
+            ;;
+        vendor/lib/libril-qcril-hook-oem.so)
+            "${PATCHELF}" --replace-needed libril.so libril_samsung.so "${2}"
             ;;
     esac
 }
