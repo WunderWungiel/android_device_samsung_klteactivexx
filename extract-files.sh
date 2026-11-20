@@ -20,6 +20,10 @@ function blob_fixup() {
                 --replace-needed libprotobuf-cpp-full.so libprotobuf-cpp-full-v23.so \
                 --replace-needed libprotobuf-cpp-haxx.so libprotobuf-cpp-full-v23.so \
                 "${2}"
+            # pthread_mutexattr_settype on uninitialized attrs (see libshim_secril)
+            "${PATCHELF_0_18}" --rename-dynamic-symbols \
+                <(echo "pthread_mutexattr_settype shim_secril_mutexattr_settype") "${2}"
+            "${PATCHELF_0_17_2}" --add-needed libshim_secril.so "${2}"
             ;;
         vendor/lib/libril-qcril-hook-oem.so)
             "${PATCHELF}" --replace-needed libril.so libril_samsung.so "${2}"
